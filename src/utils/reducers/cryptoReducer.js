@@ -1,18 +1,26 @@
-import {ADD_CRYPTO, GET_CRYPTO, REMOVE_CRYPTO} from '../actions/type';
+import {
+  ADD_CRYPTO,
+  ADD_CRYPTO_SUCCESS,
+  GET_CRYPTO,
+  GET_CRYPTO_SUCCESS,
+  REMOVE_CRYPTO,
+  REMOVE_CRYPTO_SUCCESS,
+} from '../actions/type';
 
-const INITIAL_DATA = [];
+const initialState = [];
 
-const cryptoReducer = (state = INITIAL_DATA, action) => {
+const cryptoReducer = (state = initialState, action) => {
+  console.log('maaaaaa', action);
   switch (action.type) {
-    case ADD_CRYPTO:
-      return state.concat([action.data]);
-    case REMOVE_CRYPTO:
+    case ADD_CRYPTO_SUCCESS:
+      return state.concat([action.payload.data]);
+    case REMOVE_CRYPTO_SUCCESS:
       return state.filter(crypto => crypto.id !== action.id);
-    case GET_CRYPTO:
-      return (state = {
+    case GET_CRYPTO_SUCCESS:
+      state = {
         ...state,
-        items: action.payload?.crypto,
-      });
+        crypto: action.payload,
+      };
     default:
       return state;
   }

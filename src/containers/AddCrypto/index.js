@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
   StatusBar,
@@ -11,16 +11,19 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-// import {useDispatch, useSelector} from 'react-redux';
+import {fetchData} from '../../utils/actions/initialData';
 let windowSize = Dimensions.get('window');
+import {useDispatch} from 'react-redux';
 function AddCrypto({navigation}) {
-  // const category = useSelector(state => state.category);
-  // const dispatch = useDispatch();
+  const [name, setName] = useState(null);
+  const dispatch = useDispatch();
+  const getCryptoData = async () => {
+    dispatch(fetchData(name));
+    navigation.goBack();
+  };
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        // style={style}
-        onPress={() => navigation.goBack()}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
         <Text style={styles.backButton}>Back To list</Text>
       </TouchableOpacity>
       <View style={styles.formHolder}>
@@ -28,14 +31,12 @@ function AddCrypto({navigation}) {
         <TextInput
           style={styles.input}
           placeholder="Use a name or ticker symbol"
-          // onChangeText={onChangeText}
-          // value={text}
+          onChangeText={text => setName(text)}
+          value={name}
+          autoCapitalize="none"
         />
         <View style={styles.holderButton}>
-          <TouchableOpacity
-            style={styles.addButton}
-            // onPress={() => navigate('HomeScreen')}
-          >
+          <TouchableOpacity style={styles.addButton} onPress={getCryptoData}>
             <Text style={styles.textButtn}>Add</Text>
           </TouchableOpacity>
         </View>

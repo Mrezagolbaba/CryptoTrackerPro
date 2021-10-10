@@ -6,26 +6,16 @@
  * @flow strict-local
  */
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
 import Home from './src/containers/Home';
 import AddCrypto from './src/containers/AddCrypto';
 
+import {fetchData} from './src/utils/actions/initialData';
+
 const Stack = createNativeStackNavigator();
-const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetch('https://data.messari.io/api/v2/assets/btc/profile')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(err => console.error(err));
-  }, []);
-
+function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -37,5 +27,5 @@ const App = () => {
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
+}
 export default App;

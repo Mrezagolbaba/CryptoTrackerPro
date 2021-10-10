@@ -1,4 +1,9 @@
-import {ADD_CRYPTO, REMOVE_CRYPTO, GET_CRYPTO} from './type';
+import {
+  ADD_CRYPTO,
+  REMOVE_CRYPTO,
+  GET_CRYPTO,
+  GET_CRYPTO_SUCCESS,
+} from './type';
 
 export const addCrypto = data => ({
   type: ADD_CRYPTO,
@@ -10,7 +15,7 @@ export const deleteCrypto = id => ({
   id: id,
 });
 export const getCrypto = (data, id) => ({
-  type: GET_CRYPTO,
+  type: GET_CRYPTO_SUCCESS,
   data,
   id,
 });

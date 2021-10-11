@@ -6,14 +6,14 @@ import {
   View,
   Text,
   TextInput,
-  Button,
-  ScrollView,
   TouchableOpacity,
   Dimensions,
+  KeyboardAvoidingView,
 } from 'react-native';
-import {fetchData} from '../../utils/actions/initialData';
+import {fetchData} from '../../utils/actions/fetchData';
 let windowSize = Dimensions.get('window');
 import {useDispatch} from 'react-redux';
+import Icon from 'react-native-vector-icons/AntDesign';
 function AddCrypto({navigation}) {
   const [name, setName] = useState(null);
   const dispatch = useDispatch();
@@ -22,8 +22,15 @@ function AddCrypto({navigation}) {
     navigation.goBack();
   };
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? '' : 'height'}
+      style={styles.container}
+      keyboardVerticalOffset={Platform.OS == 'ios' ? 20 : 20}
+      enabled={Platform.OS === 'ios'}>
+      <TouchableOpacity
+        style={styles.backButtonContainer}
+        onPress={() => navigation.goBack()}>
+        <Icon name="arrowleft" size={20} />
         <Text style={styles.backButton}>Back To list</Text>
       </TouchableOpacity>
       <View style={styles.formHolder}>
@@ -41,7 +48,7 @@ function AddCrypto({navigation}) {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
@@ -67,6 +74,10 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: '#ffffff',
   },
+  backButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
   backButton: {
     color: '#5F7488',
   },
@@ -74,6 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#000',
   },
   holderButton: {
     display: 'flex',

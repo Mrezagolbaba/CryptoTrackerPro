@@ -16,4 +16,4 @@ _This app uses CoinLore Public API to keep data up to date._
 ### Screens
 
 - **Home:** Shows the top 100 cryptocurrencies. You can access the detail of any coin or look for one.
-- ** Add Coin:** you can add new cryptocurrencies for tracking.
+- **AddCoin:** you can add new cryptocurrencies for tracking.

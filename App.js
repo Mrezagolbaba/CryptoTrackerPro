@@ -12,7 +12,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Home from './src/containers/Home';
 import AddCrypto from './src/containers/AddCrypto';
 
-import {fetchData} from './src/utils/actions/initialData';
+import {fetchData} from './src/utils/actions/fetchData';
 
 const Stack = createNativeStackNavigator();
 function App() {

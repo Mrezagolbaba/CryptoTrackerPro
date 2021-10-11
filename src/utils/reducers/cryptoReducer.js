@@ -10,11 +10,10 @@ import {
 const initialState = [];
 
 const cryptoReducer = (state = initialState, action) => {
-  console.log('maaaaaa', action);
   switch (action.type) {
     case ADD_CRYPTO_SUCCESS:
       return state.concat([action.payload.data]);
-    case REMOVE_CRYPTO_SUCCESS:
+    case REMOVE_CRYPTO:
       return state.filter(crypto => crypto.id !== action.id);
     case GET_CRYPTO_SUCCESS:
       state = {

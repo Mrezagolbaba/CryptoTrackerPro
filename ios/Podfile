@@ -12,6 +12,9 @@ target 'CryptoTrackerPro' do
     :hermes_enabled => false
   )
 
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'CryptoTrackerProTests' do
     inherit! :complete
     # Pods for testing

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-  ActivityIndicator,
   StatusBar,
   StyleSheet,
   View,
@@ -8,32 +7,49 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {useSelector, useDispatch} from 'react-redux';
+
 import Header from '../../components/Header';
 import Card from '../../components/Card';
-import {useSelector} from 'react-redux';
+import {deleteCrypto} from '../../utils/actions';
 const Home = ({navigation}) => {
+  const dispatch = useDispatch();
   const crypto = useSelector(state => state.cryptoReducer);
-  console.log('home', crypto);
+  const handleDelete = id => {
+    dispatch(deleteCrypto(id));
+  };
   return (
     <>
       <StatusBar barStyle="light-content" />
       <View style={styles.sectionContainer}>
         <Header />
         {!crypto.length > 0 && (
-          <View>
-            <Text>There is no data Please add crypto </Text>
+          <View style={styles.holderNoItem}>
+            <Text style={styles.noItem}>
+              There is no data Please add crypto{' '}
+            </Text>
           </View>
         )}
-        <View style={styles.CardItems}>
-          {crypto.length > 0 &&
-            crypto.map((i, index) => {
-              return <Card key={index} data={i} />;
-            })}
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('AddCrypto')}>
-            <Text>Add a Cryptocurrency</Text>
-          </TouchableOpacity>
+        <View>
+          <ScrollView>
+            <View style={styles.CardItems}>
+              {crypto.length > 0 &&
+                crypto.map((i, index) => {
+                  return (
+                    <Card handleDelete={handleDelete} key={index} data={i} />
+                  );
+                })}
+            </View>
+          </ScrollView>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('AddCrypto')}>
+              <Icon name="plus" size={20} color="#546A81" />
+              <Text style={styles.textButton}>Add a Cryptocurrency</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </>
@@ -41,8 +57,10 @@ const Home = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
+  sectionContainer: {},
+  container: {
     flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
   },
   sectionTitle: {
     fontSize: 24,
@@ -58,12 +76,32 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 50,
+  },
+  button: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   CardItems: {
     display: 'flex',
     alignItems: 'center',
+  },
+  textButton: {
+    color: '#546A81',
+  },
+  holderNoItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  noItem: {
+    color: 'black',
+    fontSize: 18,
   },
 });
 export default Home;
